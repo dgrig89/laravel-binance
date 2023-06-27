@@ -14,16 +14,16 @@ class BinanceAPI {
     protected string $wapi_url;  // WAPI URL
     protected $curl;             // curl handle
 
-    function __construct()
+    function __construct(string $key = '', string $secret = '')
     {
-        $this->boot();
+        $this->boot($key, $secret);
         $this->setupCurl();
     }
 
-    public function boot()
+    public function boot(string $key = '', string $secret = '')
     {
-        $this->key = config('binance.auth.key');
-        $this->secret = config('binance.auth.secret');
+        $this->key = $key ?: config('binance.auth.key');
+        $this->secret = $secret ?: config('binance.auth.secret');
         $this->url = config('binance.urls.api');
         $this->wapi_url = config('binance.urls.wapi');
         $this->recvWindow = config('binance.settings.timing');
